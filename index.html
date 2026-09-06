@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading BTC Price...</title>
+    <link rel="icon" id="favicon" type="image/png" href="bitcoin.png" />
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #2E2E2E; /* Anthrazit */
+            color: #D3D3D3; /* Hellgrau */
+            font-family: 'Yantramanav', 'Inter', 'Inter Fallback', system-ui, sans-serif;
+            font-size: 20vw; /* Dynamische Schriftgröße */
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+
+        #ticker-symbol {
+            font-size: 5vw; /* 50% of the previous size */
+            color: #696969; /* Much darker grey */
+            display: flex;
+            align-items: center;
+        }
+
+        #ticker-symbol img {
+            width: 1em;
+            height: 1em;
+            margin-right: 0.5em;
+            filter: brightness(50%); /* Dim the icon */
+        }
+
+        #btc-price {
+            width: 80%; /* Begrenze den Text auf 80% der Fensterbreite */
+            white-space: nowrap; /* Verhindert Zeilenumbrüche */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #clock {
+            font-size: 5vw; /* Same size as ticker text */
+            color: #696969; /* Much darker grey */
+            position: absolute;
+            bottom: 0;
+            padding-bottom: 2.5vw; /* 50% of its height */
+        }
+
+        body.nightmode {
+            background-color: #000000; /* Black */
+            color: #111111; /* Very dark grey */
+        }
+
+        body.nightmode #ticker-symbol {
+            color: #111111; /* Very dark grey */
+        }
+
+        body.nightmode #ticker-symbol img {
+            filter: grayscale(100%) brightness(10%); /* Grayscale and dim the icon */
+        }
+
+        body.nightmode #clock {
+            color: #111111; /* Very dark grey */
+        }
+    </style>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Yantramanav:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="ticker-symbol"><img id="ticker-image" src="" alt="Ticker Image"><span id="ticker-text">Loading...</span></div>
+    <div id="btc-price">Loading...</div>
+    <div id="clock">Loading time...</div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                ticker: params.get('symbol') || 'BTCUSDT',
+                interval: (parseInt(params.get('interval')) || 3) * 1000, // Convert seconds to milliseconds
+                decimals: parseInt(params.get('decimals')) || 0,
+                nightmode: params.has('night')
+            };
+        }
+
+        async function fetchBTCPrice(ticker, decimals) {
+            const url = `https://api.binance.com/api/v3/ticker/price?symbol=${ticker}`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const price = parseFloat(data.price).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+
+                // Update the displayed price
+                document.getElementById('btc-price').innerText = `${price}`;
+
+                // Update the ticker symbol text
+                document.getElementById('ticker-text').innerText = ticker;
+
+                // Update the ticker image
+                const tickerImage = document.getElementById('ticker-image');
+                tickerImage.src = `${ticker.toLowerCase()}.png`;
+                tickerImage.alt = `${ticker} logo`;
+
+                // Update the favicon
+                const favicon = document.getElementById('favicon');
+                favicon.href = `${ticker.toLowerCase()}.png`;
+
+                // Update the tab title
+                document.title = `${price}`;
+            } catch (error) {
+                document.getElementById('btc-price').innerText = 'Error loading price';
+                document.getElementById('ticker-text').innerText = 'Error';
+                document.title = 'Error loading BTC price';
+                console.error('Error fetching BTC price:', error);
+            }
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('clock').innerText = timeString;
+        }
+
+        function startFetching() {
+            const { ticker, interval, decimals, nightmode } = getQueryParams();
+            if (nightmode) {
+                document.body.classList.add('nightmode');
+            }
+            fetchBTCPrice(ticker, decimals);
+            setInterval(() => fetchBTCPrice(ticker, decimals), interval);
+            updateClock();
+            setInterval(updateClock, 60000); // Update clock every minute
+        }
+
+        // Start fetching with values from query parameters
+        startFetching();
+    </script>
+</body>
+</html>
