@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading BTC Price...</title>
-    <link rel="icon" id="favicon" type="image/png" href="bitcoin.png" />
+    <link rel="icon" id="favicon" type="image/png" href="assets/btcusdt.png" />
     <style>
         body {
             margin: 0;
@@ -13,18 +13,18 @@
             justify-content: center;
             flex-direction: column;
             height: 100vh;
-            background-color: #2E2E2E; /* Anthrazit */
-            color: #D3D3D3; /* Hellgrau */
+            background-color: #2E2E2E;
+            color: #D3D3D3;
             font-family: 'Yantramanav', 'Inter', 'Inter Fallback', system-ui, sans-serif;
-            font-size: 20vw; /* Dynamische Schriftgröße */
+            font-size: 20vw;
             text-align: center;
             font-weight: bold;
             position: relative;
         }
 
         #ticker-symbol {
-            font-size: 5vw; /* 50% of the previous size */
-            color: #696969; /* Much darker grey */
+            font-size: 5vw;
+            color: #696969;
             display: flex;
             align-items: center;
         }
@@ -33,42 +33,41 @@
             width: 1em;
             height: 1em;
             margin-right: 0.5em;
-            filter: brightness(50%); /* Dim the icon */
+            filter: brightness(50%);
         }
 
         #btc-price {
-            width: 80%; /* Begrenze den Text auf 80% der Fensterbreite */
-            white-space: nowrap; /* Verhindert Zeilenumbrüche */
+            width: 80%;
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         #clock {
-            font-size: 5vw; /* Same size as ticker text */
-            color: #696969; /* Much darker grey */
+            font-size: 5vw;
+            color: #696969;
             position: absolute;
             bottom: 0;
-            padding-bottom: 2.5vw; /* 50% of its height */
+            padding-bottom: 2.5vw;
         }
 
         body.nightmode {
-            background-color: #000000; /* Black */
-            color: #111111; /* Very dark grey */
+            background-color: #000000;
+            color: #111111;
         }
 
         body.nightmode #ticker-symbol {
-            color: #111111; /* Very dark grey */
+            color: #111111;
         }
 
         body.nightmode #ticker-symbol img {
-            filter: grayscale(100%) brightness(10%); /* Grayscale and dim the icon */
+            filter: grayscale(100%) brightness(10%);
         }
 
         body.nightmode #clock {
-            color: #111111; /* Very dark grey */
+            color: #111111;
         }
     </style>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Yantramanav:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -81,7 +80,7 @@
             const params = new URLSearchParams(window.location.search);
             return {
                 ticker: params.get('symbol') || 'BTCUSDT',
-                interval: (parseInt(params.get('interval')) || 3) * 1000, // Convert seconds to milliseconds
+                interval: (parseInt(params.get('interval')) || 3) * 1000,
                 decimals: parseInt(params.get('decimals')) || 0,
                 nightmode: params.has('night')
             };
@@ -94,22 +93,17 @@
                 const data = await response.json();
                 const price = parseFloat(data.price).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 
-                // Update the displayed price
                 document.getElementById('btc-price').innerText = `${price}`;
 
-                // Update the ticker symbol text
                 document.getElementById('ticker-text').innerText = ticker;
 
-                // Update the ticker image
                 const tickerImage = document.getElementById('ticker-image');
-                tickerImage.src = `${ticker.toLowerCase()}.png`;
+                tickerImage.src = `assets/${ticker.toLowerCase()}.png`;
                 tickerImage.alt = `${ticker} logo`;
 
-                // Update the favicon
                 const favicon = document.getElementById('favicon');
-                favicon.href = `${ticker.toLowerCase()}.png`;
+                favicon.href = `assets/${ticker.toLowerCase()}.png`;
 
-                // Update the tab title
                 document.title = `${price}`;
             } catch (error) {
                 document.getElementById('btc-price').innerText = 'Error loading price';
@@ -133,10 +127,9 @@
             fetchBTCPrice(ticker, decimals);
             setInterval(() => fetchBTCPrice(ticker, decimals), interval);
             updateClock();
-            setInterval(updateClock, 60000); // Update clock every minute
+            setInterval(updateClock, 60000);
         }
 
-        // Start fetching with values from query parameters
         startFetching();
     </script>
 </body>
