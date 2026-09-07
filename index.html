@@ -124,8 +124,8 @@
             if (nightmode) {
                 document.body.classList.add('nightmode');
             }
-            fetchBTCPrice(ticker, decimals);
-            setInterval(() => fetchBTCPrice(ticker, decimals), interval);
+            fetchBTCPrice(ticker.toUpperCase(), decimals);
+            setInterval(() => fetchBTCPrice(ticker.toUpperCase(), decimals), interval);
             updateClock();
             setInterval(updateClock, 60000);
         }
