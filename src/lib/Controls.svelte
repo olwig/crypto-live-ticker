@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import { themeManager } from '../lib/theme-manager.svelte.js';
     import { app } from '../lib/store.svelte.js';
 
@@ -18,10 +19,41 @@
 		const next = Math.round((zoom + delta) * 10) / 10;
 		zoom = Math.max(0.5, Math.min(5, next));
 	}
+
+	let open = $state(false);
+
+	function onDocumentClick(event) {
+		const box = document.querySelector('.controls');
+		if (box && box.contains(event.target)) {
+			return;
+		}
+		open = false;
+		document.removeEventListener('click', onDocumentClick);
+	}
+
+	function showControls(event) {
+		event.stopPropagation();
+		open = true;
+		queueMicrotask(() => document.addEventListener('click', onDocumentClick));
+	}
+
+	onMount(() => {
+		return () => document.removeEventListener('click', onDocumentClick);
+	});
 </script>
 
-<div class="controls" role="toolbar" aria-label="Chart Controls">
-
+<div class="controls" class:closed={!open} role="toolbar" aria-label="Chart Controls">
+	{#if !open}
+		<button
+			type="button"
+			class="launcher"
+			aria-expanded="false"
+			aria-label="Show controls"
+			onclick={showControls}
+		>
+			⚙
+		</button>
+	{:else}
 	<label class="entry">
 		<span class="label">Symbol</span>
 		<select bind:value={app.symbol}>
@@ -31,13 +63,25 @@
 		</select>
 	</label>
 
+	<label class="entry">
+		<span class="label">Theme</span>
+		<select
+			value={themeManager.get()}
+			onchange={(event) => themeManager.set(event.currentTarget.value)}
+		>
+			{#each themeManager.list() as id, index}
+				<option value={id}>{themeManager.list(true)[index]}</option>
+			{/each}
+		</select>
+	</label>
+
 	<button
 		type="button"
 		class="entry"
-		aria-pressed={themeManager.get() === 'dark'}
+		aria-pressed={themeManager.get() === themeManager.togglePair()[0]}
 		onclick={() => themeManager.toggle()}
 	>
-		{themeManager.get() === 'dark' ? 'Light' : 'Dark'}
+		{themeManager.nextToogle(true)}
 	</button>
 
 	<div class="entry group">
@@ -53,38 +97,64 @@
 		<span class="value">{zoom.toFixed(1)}</span>
 		<button type="button" onclick={() => changeZoom(0.1)}>+</button>
 	</div>
+	{/if}
 </div>
 
 <style>
 	.controls {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.75rem;
+		gap: var(--controls-gap);
 		align-items: center;
-		padding: 0.5rem;
+		padding: var(--controls-padding);
 
         font-size: 0.9rem;
+	}
+
+	.closed {
+		background: none;
+		border: 0;
+		padding: 0;
+		gap: 0;
+	}
+
+	.controls .launcher,
+	.controls .launcher:hover,
+	.controls .launcher:active {
+		background: none;
+		border: 0;
+		margin: 0.25rem;
+		padding: 0.65rem;
+		box-shadow: none;
+		appearance: none;
+		color: inherit;
+		line-height: 1;
+		font-size: 1.25rem;
+		cursor: pointer;
 	}
 
 	.entry {
 		display: flex;
 		align-items: center;
-		gap: 0.35rem;
+		gap: var(--entry-gap);
 	}
 
 	.label {
 		font-size: 0.8rem;
-		opacity: 0.7;
+		opacity: var(--label-opacity);
+		color: var(--label-color);
 	}
 
 	.value {
 		min-width: 2ch;
 		text-align: center;
 		font-variant-numeric: tabular-nums;
+		color: var(--value-color);
 	}
 
 	button,
 	select {
 		font: inherit;
+		border-radius: var(--control-radius);
 	}
 </style>

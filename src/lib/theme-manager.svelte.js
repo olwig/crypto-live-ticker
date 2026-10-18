@@ -4,22 +4,31 @@ class ThemeManager {
     #THEME_STORAGE_KEY = 'ui.theme';
     #THEMES = {
         dark: 'Dark Mode',
+        sleep: 'Sleep',
         light: 'Light Mode',
+        tui: 'TUI',
+        html: "90's HTML",
     };
-    #DEFAULT_THEME = Object.keys(this.#THEMES)[0];
+    #DEFAULT_THEME = 'light';
 
     #state;
+    #togglePair = $state(['dark', 'light']);
 
     constructor() {
         this.#state = $state(this.#read());
+        this.setTogglePair('dark', 'light');
     }
 
     has(name) {
         return Object.hasOwn(this.#THEMES, name);
     }
 
-    list() {
-        return Object.keys(this.#THEMES);
+    list(stringified = false) {
+        const ids = Object.keys(this.#THEMES);
+        if (!stringified) {
+            return ids;
+        }
+        return ids.map((id) => this.stringify(id));
     }
 
     stringify(name) {
@@ -30,12 +39,22 @@ class ThemeManager {
         return label;
     }
 
-    nextToogle() {
-        const themeIds = this.list();
-        const currentTheme = this.#state;
-        const currentIndex = themeIds.indexOf(currentTheme);
-        const nextIndex = (currentIndex + 1) % themeIds.length;
-        return themeIds[nextIndex];
+    setTogglePair(first, second) {
+        if (!this.has(first) || !this.has(second) || first === second) {
+            throw new Error(`Invalid toggle pair: ${first}, ${second}`);
+        }
+        this.#togglePair = [first, second];
+    }
+
+    togglePair() {
+        return [...this.#togglePair];
+    }
+
+    nextToogle(stringified = false) {
+        const pair = this.#togglePair;
+        const index = pair.indexOf(this.#state);
+        const next = index === -1 ? pair[0] : pair[(index + 1) % pair.length];
+        return stringified ? this.stringify(next) : next;
     }
 
     toggle() {
@@ -60,15 +79,16 @@ class ThemeManager {
         localStorage.setItem(this.#THEME_STORAGE_KEY, name);
     }
 
-    get() {
-        return this.#state;
+    get(stringified = false) {
+        const name = this.#state;
+        return stringified ? this.stringify(name) : name;
     }
 
     #read() {
         const storedTheme = localStorage.getItem(this.#THEME_STORAGE_KEY);
         if (storedTheme && this.has(storedTheme)) {
             return storedTheme;
-        } 
+        }
         return this.#DEFAULT_THEME;
     }
 }

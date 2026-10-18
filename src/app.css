@@ -1,19 +1,346 @@
-
-
+:root,
 :root[data-theme="light"] {
-    --background-color: #2E2E2E;
-    --text-color: #111111;
-    --ticker-symbol-color: #696969;
-    --ticker-symbol-img-filter: brightness(50%);
-    --clock-color: #696969;
+    --background-color: #f4f5f7;
+    --text-color: #121212;
+    --ticker-symbol-color: #3a3a3a;
+    --ticker-symbol-img-filter: none;
+    --clock-color: #4a4a4a;
+    --controls-color: #2a2a2a;
+    --control-bg: #ffffff;
+    --control-text: #121212;
+    --control-border: #c8c8c8;
+    --control-border-width: 1px;
+    --control-border-style: solid;
+    --font-family: 'Yantramanav', 'Inter', 'Inter Fallback', system-ui, sans-serif;
+    --font-family-mono: ui-monospace, Consolas, monospace;
+    --font-weight: bold;
+    --control-radius: 0;
+    --control-shadow: none;
+    --control-edge: #c8c8c8;
+    --control-active-bg: #ffffff;
+    --control-active-text: #121212;
+    --control-active-edge: #c8c8c8;
+    --control-hover-bg: #ffffff;
+    --control-hover-text: #121212;
+    --control-hover-edge: #c8c8c8;
+    --field-bg: #ffffff;
+    --field-text: #121212;
+    --field-edge: #c8c8c8;
+    --field-hover-edge: #c8c8c8;
+    --field-font: inherit;
+    --color-scheme: normal;
+    --control-appearance: auto;
+    --control-pad: 1px 6px;
+    --field-pad: 0;
+    --field-min-width: auto;
+    --field-arrow: none;
+    --label-color: #2a2a2a;
+    --value-color: #2a2a2a;
+    --controls-gap: 0.75rem;
+    --controls-padding: 0.5rem;
+    --entry-gap: 0.35rem;
+    --controls-frame-bg: transparent;
+    --controls-frame-edge: transparent;
+    --controls-frame-width: 0;
+    --label-opacity: 0.7;
+    --focus-outline: auto;
+    --focus-outline-offset: 0;
+    --price-bg: transparent;
+    --price-edge: transparent;
+    --price-edge-width: 0;
+    --symbol-border: 0 solid transparent;
+    --symbol-border-left: 0 solid transparent;
+    --symbol-pad: 0;
+    --region-pad: 0;
+    --clock-pad-bottom: 2.5vw;
+    --clock-border: 0 solid transparent;
+    --clock-border-top: 0 solid transparent;
+    --clock-bg: transparent;
+    --clock-inset: auto;
+    --wrapper-inset: 1rem;
+    --link: #121212;
+    --link-visited: #121212;
+    --link-hover: #121212;
+    --link-active: #121212;
+    --link-decoration: none;
+    --code-bg: transparent;
+    --code-edge: transparent;
 }
 
 :root[data-theme="dark"] {
     --background-color: #000000;
-    --text-color: #D3D3D3;
-    --ticker-symbol-color: #111111;
-    --ticker-symbol-img-filter: grayscale(100%) brightness(10%);
-    --clock-color: #111111;
+    --text-color: #c8c8c8;
+    --ticker-symbol-color: #8a8a8a;
+    --ticker-symbol-img-filter: brightness(0.8);
+    --clock-color: #8a8a8a;
+    --controls-color: #b0b0b0;
+    --control-bg: #141414;
+    --control-text: #d0d0d0;
+    --control-border: #2e2e2e;
+    --control-border-width: 1px;
+    --control-border-style: solid;
+    --font-family: 'Yantramanav', 'Inter', 'Inter Fallback', system-ui, sans-serif;
+    --font-family-mono: ui-monospace, Consolas, monospace;
+    --font-weight: bold;
+    --control-radius: 0;
+    --control-shadow: none;
+    --control-edge: #2e2e2e;
+    --control-active-bg: #141414;
+    --control-active-text: #d0d0d0;
+    --control-active-edge: #2e2e2e;
+    --control-hover-bg: #141414;
+    --control-hover-text: #d0d0d0;
+    --control-hover-edge: #2e2e2e;
+    --field-bg: #141414;
+    --field-text: #d0d0d0;
+    --field-edge: #2e2e2e;
+    --field-hover-edge: #2e2e2e;
+    --field-font: inherit;
+    --color-scheme: normal;
+    --control-appearance: auto;
+    --control-pad: 1px 6px;
+    --field-pad: 0;
+    --field-min-width: auto;
+    --field-arrow: none;
+    --label-color: #b0b0b0;
+    --value-color: #b0b0b0;
+    --controls-gap: 0.75rem;
+    --controls-padding: 0.5rem;
+    --entry-gap: 0.35rem;
+    --controls-frame-bg: transparent;
+    --controls-frame-edge: transparent;
+    --controls-frame-width: 0;
+    --label-opacity: 0.7;
+    --focus-outline: auto;
+    --focus-outline-offset: 0;
+    --price-bg: transparent;
+    --price-edge: transparent;
+    --price-edge-width: 0;
+    --symbol-border: 0 solid transparent;
+    --symbol-border-left: 0 solid transparent;
+    --symbol-pad: 0;
+    --region-pad: 0;
+    --clock-pad-bottom: 2.5vw;
+    --clock-border: 0 solid transparent;
+    --clock-border-top: 0 solid transparent;
+    --clock-bg: transparent;
+    --clock-inset: auto;
+    --wrapper-inset: 1rem;
+    --link: #c8c8c8;
+    --link-visited: #c8c8c8;
+    --link-hover: #c8c8c8;
+    --link-active: #c8c8c8;
+    --link-decoration: none;
+    --code-bg: transparent;
+    --code-edge: transparent;
+}
+
+:root[data-theme="sleep"] {
+    --background-color: #000000;
+    --text-color: #141414;
+    --ticker-symbol-color: #0e0e0e;
+    --ticker-symbol-img-filter: brightness(0.05);
+    --clock-color: #0e0e0e;
+    --controls-color: #101010;
+    --control-bg: #050505;
+    --control-text: #141414;
+    --control-border: #0a0a0a;
+    --control-border-width: 1px;
+    --control-border-style: solid;
+    --font-family: 'Yantramanav', 'Inter', 'Inter Fallback', system-ui, sans-serif;
+    --font-family-mono: ui-monospace, Consolas, monospace;
+    --font-weight: bold;
+    --control-radius: 0;
+    --control-shadow: none;
+    --control-edge: #0a0a0a;
+    --control-active-bg: #050505;
+    --control-active-text: #141414;
+    --control-active-edge: #0a0a0a;
+    --control-hover-bg: #050505;
+    --control-hover-text: #141414;
+    --control-hover-edge: #0a0a0a;
+    --field-bg: #050505;
+    --field-text: #141414;
+    --field-edge: #0a0a0a;
+    --field-hover-edge: #0a0a0a;
+    --field-font: inherit;
+    --color-scheme: dark;
+    --control-appearance: auto;
+    --control-pad: 1px 6px;
+    --field-pad: 0;
+    --field-min-width: auto;
+    --field-arrow: none;
+    --label-color: #101010;
+    --value-color: #101010;
+    --controls-gap: 0.75rem;
+    --controls-padding: 0.5rem;
+    --entry-gap: 0.35rem;
+    --controls-frame-bg: transparent;
+    --controls-frame-edge: transparent;
+    --controls-frame-width: 0;
+    --label-opacity: 1;
+    --focus-outline: auto;
+    --focus-outline-offset: 0;
+    --price-bg: transparent;
+    --price-edge: transparent;
+    --price-edge-width: 0;
+    --symbol-border: 0 solid transparent;
+    --symbol-border-left: 0 solid transparent;
+    --symbol-pad: 0;
+    --region-pad: 0;
+    --clock-pad-bottom: 2.5vw;
+    --clock-border: 0 solid transparent;
+    --clock-border-top: 0 solid transparent;
+    --clock-bg: transparent;
+    --clock-inset: auto;
+    --wrapper-inset: 1rem;
+    --link: #101010;
+    --link-visited: #101010;
+    --link-hover: #101010;
+    --link-active: #101010;
+    --link-decoration: none;
+    --code-bg: transparent;
+    --code-edge: transparent;
+}
+
+:root[data-theme="tui"] {
+    --background-color: #2c2e33;
+    --text-color: #e0e2ea;
+    --ticker-symbol-color: #b4f6c0;
+    --ticker-symbol-img-filter: none;
+    --clock-color: #9b9ea4;
+    --controls-color: #e0e2ea;
+    --control-bg: #3c3e44;
+    --control-text: #e0e2ea;
+    --control-border: #4f5258;
+    --control-border-width: 0;
+    --control-border-style: solid;
+    --font-family: ui-monospace, 'Cascadia Mono', 'Cascadia Code', Consolas, monospace;
+    --font-family-mono: ui-monospace, 'Cascadia Mono', 'Cascadia Code', Consolas, monospace;
+    --font-weight: normal;
+    --control-radius: 0;
+    --control-shadow: none;
+    --control-edge: #4f5258;
+    --control-active-bg: #005523;
+    --control-active-text: #b4f6c0;
+    --control-active-edge: #005523;
+    --control-hover-bg: #004c63;
+    --control-hover-text: #a6dbff;
+    --control-hover-edge: #004c63;
+    --field-bg: #3c3e44;
+    --field-text: #e0e2ea;
+    --field-edge: #3c3e44;
+    --field-hover-edge: #004c63;
+    --field-font: inherit;
+    --color-scheme: dark;
+    --control-appearance: none;
+    --control-pad: 4px 14px;
+    --field-pad: 4px 28px 4px 12px;
+    --field-min-width: 9rem;
+    --field-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%239b9ea4' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+    --label-color: #9b9ea4;
+    --value-color: #e0e2ea;
+    --controls-gap: 14px;
+    --controls-padding: 6px 8px;
+    --entry-gap: 8px;
+    --controls-frame-bg: #14161b;
+    --controls-frame-edge: #4f5258;
+    --controls-frame-width: 1px;
+    --label-opacity: 1;
+    --focus-outline: 1px solid #a6dbff;
+    --focus-outline-offset: 0;
+    --price-bg: transparent;
+    --price-edge: transparent;
+    --price-edge-width: 0;
+    --symbol-border: 0 solid transparent;
+    --symbol-border-left: 0 solid transparent;
+    --symbol-pad: 0;
+    --region-pad: 0.4rem;
+    --clock-pad-bottom: 0.4rem;
+    --clock-border: 0 solid transparent;
+    --clock-border-top: 0 solid transparent;
+    --clock-bg: #14161b;
+    --clock-inset: 0;
+    --wrapper-inset: 4px;
+    --link: #a6dbff;
+    --link-visited: #ffcaff;
+    --link-hover: #fce094;
+    --link-active: #ffc0b9;
+    --link-decoration: underline;
+    --code-bg: #14161b;
+    --code-edge: #4f5258;
+}
+
+:root[data-theme="html"] {
+    --background-color: #c0c0c0;
+    --text-color: #000000;
+    --ticker-symbol-color: #000080;
+    --ticker-symbol-img-filter: none;
+    --clock-color: #000080;
+    --controls-color: #000000;
+    --control-bg: #c0c0c0;
+    --control-text: #000000;
+    --control-border: #c0c0c0;
+    --control-border-width: 2px;
+    --control-border-style: solid;
+    --font-family: 'Times New Roman', Times, serif;
+    --font-family-mono: 'Courier New', Courier, monospace;
+    --font-weight: normal;
+    --control-radius: 0;
+    --control-shadow: none;
+    --control-edge: #ffffff #404040 #404040 #ffffff;
+    --control-active-bg: #c0c0c0;
+    --control-active-text: #000000;
+    --control-active-edge: #404040 #ffffff #ffffff #404040;
+    --control-hover-bg: #c0c0c0;
+    --control-hover-text: #000000;
+    --control-hover-edge: #ffffff #404040 #404040 #ffffff;
+    --field-bg: #ffffff;
+    --field-text: #000000;
+    --field-edge: #404040 #ffffff #ffffff #404040;
+    --field-hover-edge: #404040 #ffffff #ffffff #404040;
+    --field-font: inherit;
+    --color-scheme: normal;
+    --control-appearance: auto;
+    --control-pad: 1px 6px;
+    --field-pad: 0;
+    --field-min-width: auto;
+    --field-arrow: none;
+    --label-color: #000000;
+    --value-color: #000000;
+    --controls-gap: 4px;
+    --controls-padding: 4px;
+    --entry-gap: 4px;
+    --controls-frame-bg: #c0c0c0;
+    --controls-frame-edge: #ffffff #404040 #404040 #ffffff;
+    --controls-frame-width: 2px;
+    --label-opacity: 1;
+    --focus-outline: 1px dotted #000000;
+    --focus-outline-offset: 1px;
+    --price-bg: #ffffff;
+    --price-edge: #404040 #ffffff #ffffff #404040;
+    --price-edge-width: 2px;
+    --symbol-border: 1px solid #000000;
+    --symbol-border-left: 1px solid #000000;
+    --symbol-pad: 2px;
+    --region-pad: 2px;
+    --clock-pad-bottom: 0.5vw;
+    --clock-border: 1px solid #000000;
+    --clock-border-top: 1px solid #000000;
+    --clock-bg: transparent;
+    --clock-inset: auto;
+    --wrapper-inset: 4px;
+    --link: #0000ff;
+    --link-visited: #551a8b;
+    --link-hover: #cc0000;
+    --link-active: #ff0000;
+    --link-decoration: underline;
+    --code-bg: #ffffff;
+    --code-edge: #808080;
+}
+
+:root {
+    color-scheme: var(--color-scheme);
 }
 
 body {
@@ -32,10 +359,10 @@ body {
     justify-content: center;
     flex-direction: column;
     height: 100vh;
-    font-family: 'Yantramanav', 'Inter', 'Inter Fallback', system-ui, sans-serif;
+    font-family: var(--font-family);
     font-size: 20vw;
     text-align: center;
-    font-weight: bold;
+    font-weight: var(--font-weight);
     position: relative;
 }
 
@@ -44,6 +371,9 @@ body {
     color: var(--ticker-symbol-color);
     display: flex;
     align-items: center;
+    border: var(--symbol-border);
+    border-left: var(--symbol-border-left);
+    padding: var(--symbol-pad);
 }
 
 #ticker-symbol img {
@@ -58,27 +388,132 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    background: var(--price-bg);
+    border-style: solid;
+    border-width: var(--price-edge-width);
+    border-color: var(--price-edge);
 }
-
 
 #clock {
     font-size: 5vw;
     color: var(--clock-color);
     position: absolute;
     bottom: 0;
-    padding-bottom: 2.5vw;
+    left: var(--clock-inset);
+    right: var(--clock-inset);
+    padding: var(--region-pad);
+    padding-bottom: var(--clock-pad-bottom);
+    background: var(--clock-bg);
+    border: var(--clock-border);
+    border-top: var(--clock-border-top);
 }
 
+.controls {
+    color: var(--controls-color);
+    background: var(--controls-frame-bg);
+    border-style: solid;
+    border-width: var(--controls-frame-width);
+    border-color: var(--controls-frame-edge);
+}
 
-#controls {
-    font-size: 2vw;
-    color: #696969;
-    margin-bottom: 1vw;
+.controls button,
+.controls select {
+    border-radius: var(--control-radius);
+    box-shadow: var(--control-shadow);
+    border-width: var(--control-border-width);
+    border-style: var(--control-border-style);
+    appearance: var(--control-appearance);
+}
+
+.controls button {
+    background-color: var(--control-bg);
+    color: var(--control-text);
+    border-color: var(--control-edge);
+    padding: var(--control-pad);
+}
+
+.controls button:hover {
+    background-color: var(--control-hover-bg);
+    color: var(--control-hover-text);
+    border-color: var(--control-hover-edge);
+}
+
+.controls select:hover {
+    background-color: var(--control-hover-bg);
+    color: var(--control-hover-text);
+    border-color: var(--field-hover-edge);
+}
+
+.controls button:active,
+.controls button[aria-pressed="true"] {
+    background-color: var(--control-active-bg);
+    color: var(--control-active-text);
+    border-color: var(--control-active-edge);
+}
+
+.controls select {
+    background-color: var(--field-bg);
+    background-image: var(--field-arrow);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px 6px;
+    color: var(--field-text);
+    border-color: var(--field-edge);
+    font-family: var(--field-font);
+    padding: var(--field-pad);
+    min-width: var(--field-min-width);
+}
+
+.controls button:focus-visible,
+.controls select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+}
+
+input,
+textarea {
+    background: var(--field-bg);
+    color: var(--field-text);
+    border-style: solid;
+    border-width: var(--control-border-width);
+    border-color: var(--field-edge);
+    border-radius: var(--control-radius);
+    box-shadow: var(--control-shadow);
+    font-family: var(--font-family-mono);
+}
+
+a:link {
+    color: var(--link);
+    text-decoration: var(--link-decoration);
+}
+
+a:visited {
+    color: var(--link-visited);
+    text-decoration: var(--link-decoration);
+}
+
+a:hover {
+    color: var(--link-hover);
+    text-decoration: var(--link-decoration);
+}
+
+a:active {
+    color: var(--link-active);
+    text-decoration: var(--link-decoration);
+}
+
+code,
+kbd,
+pre {
+    font-family: var(--font-family-mono);
+    background: var(--code-bg);
+    border: 1px solid var(--code-edge);
 }
 
 .controls-wrapper {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  /* oder flex-Anordnung im Parent */
+    position: absolute;
+    top: var(--wrapper-inset);
+    right: var(--wrapper-inset);
 }

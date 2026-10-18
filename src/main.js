@@ -141,12 +141,9 @@ async function ensureParams() {
     const symbol = (params.get('symbol') || 'BTCUSDT').toUpperCase();
     const interval = parseInt(params.get('interval') || '3') * 1000;
     const decimals = parseInt(params.get('decimals') || '0');
-    let night = false;
-    
-    if (params.has('night')) {
-        const value = String(params.get('night')).trim().toLowerCase();
-        night =  ['true', '1', 'yes', 'on'].includes(value);
-    }
+    const themeName = params.has('theme')
+        ? String(params.get('theme')).trim().toLowerCase()
+        : '';
 
     // TODO use functiuon for it with not return price and symbol if not valid
     // TODO check if symbol is valid and available on binance
@@ -160,7 +157,7 @@ async function ensureParams() {
         symbol,
         interval,
         decimals,
-        night
+        theme: themeName
     };
 }
 
@@ -168,7 +165,9 @@ ensureParams().then(params => {
     store.symbol = params.symbol;
     store.interval = params.interval;
     store.decimals = params.decimals;
-    theme.set(params.night ? 'dark' : 'light');
+    if (params.theme && theme.has(params.theme)) {
+        theme.set(params.theme);
+    }
 }).catch(error => {
     console.error('Error ensuring parameters:', error);
     // TODO show error message to user

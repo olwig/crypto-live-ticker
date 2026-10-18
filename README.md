@@ -2,13 +2,13 @@
 
 A minimalist, real-time cryptocurrency price display for large screens and monitors.
 
-> **Note:** This project is a personal playground for learning modern JavaScript/TypeScript, frameworks, and libraries. It is not production-ready, and parts of this README may be outdated due to ongoing work-in-progress changes and frequent refactoring. Trust Motivation and TODO. Usage and Installation are the last written setup and can lag.
+> **Note:** This project is a personal playground for learning modern JavaScript/TypeScript, frameworks, and libraries. It is not production-ready, and parts of this README may be outdated due to ongoing work-in-progress changes and frequent refactoring.
 
 ## Motivation
 
 This tool was created to monitor cryptocurrency prices in situations where a fullscreen ticker display is useful:
 - **Daily Monitoring**: Keep an eye on crypto prices while working
-- **Night Mode**: Display prices at night without the brightness keeping you awake - the ultra-dark theme lets you check prices while sleeping
+- **Night Mode**: Display prices at night without the brightness keeping you awake - the Sleep theme keeps the screen black and the text very dim
 - **Dedicated Display**: Perfect for a secondary monitor or digital display board
 
 ## TODO
@@ -34,14 +34,16 @@ This tool was created to monitor cryptocurrency prices in situations where a ful
 
 ## Features
 
-- **Live Price** - Binance spot price for the selected pair
-- **Large Display** - Big type for a monitor or fullscreen view
-- **Symbol and Icon** - Pick a pair; the coin icon sits next to the name
-- **Decimals** - Change how many decimal places the price shows
-- **Light and Dark** - Switch theme from the toolbar
-- **Clock** - Current time on the display
-- **Title and Favicon** - The tab title follows the price, the icon follows the coin
-- **Client-Side** - Runs in the browser, no API key and no backend
+- **Live Price Updates** - Fetches real-time cryptocurrency prices from Binance API
+- **Fullscreen Display** - Optimized for large displays with responsive typography
+- **Customizable Ticker** - Support for any trading pair on Binance (BTC, ETH, etc.)
+- **Adjustable Update Interval** - Configure refresh rate via query parameters
+- **Themes** - Light, dark, Sleep, a NeoVim-like TUI, and early-web 90's HTML via the `theme` query parameter
+- **Minimal Design** - Clean, distraction-free interface
+- **Live Clock** - Displays current time alongside price
+- **Dynamic Favicon & Title** - Updates with current price
+- **Fully Client-Side** - Runs entirely in your browser, no server needed
+- **Works Anywhere** - Compatible with all modern browsers (Chrome, Firefox, Safari, Edge)
 
 ## Usage
 
@@ -65,9 +67,7 @@ index.html?symbol=BTCUSDT&interval=3&decimals=2&theme=dark
 | `symbol` | `BTCUSDT` | Trading pair symbol (e.g., `ETHUSDT`, `BNBUSDT`) |
 | `interval` | `3` | Update interval in seconds |
 | `decimals` | `0` | Number of decimal places to display |
-| `theme` | - | Theme: `light` or `dark` |
-
-The `interval` row is the intended meaning. The timer still starts at 1 second and does not follow this value yet.
+| `theme` | - | Theme id: `light`, `dark`, `sleep`, `tui`, or `html` |
 
 ### Examples
 
@@ -76,13 +76,16 @@ The `interval` row is the intended meaning. The timer still starts at 1 second a
 - `index.html?interval=5` - Update every 5 seconds
 - `index.html?decimals=2` - Show 2 decimal places
 - `index.html?theme=dark` - Dark theme
+- `index.html?theme=sleep` - Sleep theme, dim text on black
+- `index.html?theme=tui` - NeoVim-like TUI theme
+- `index.html?theme=html` - Early-web 90's HTML theme
 
 **Parameter Combinations:**
 - `index.html?symbol=BTCUSDT&decimals=2` - Bitcoin with 2 decimals
 - `index.html?symbol=ETHUSDT&interval=5` - Ethereum, 5-second updates
 - `index.html?symbol=BNBUSDT&decimals=4&interval=10` - Binance Coin with 4 decimals, 10-second updates
 - `index.html?symbol=BTCUSDT&theme=dark` - Bitcoin in the dark theme
-- `index.html?symbol=ETHUSDT&decimals=2&interval=3&theme=dark` - Ethereum, 2 decimals, 3-second updates, dark theme
+- `index.html?symbol=ETHUSDT&decimals=2&interval=3&theme=tui` - Ethereum, 2 decimals, 3-second updates, TUI theme
 - `index.html?symbol=ADAUSDT&interval=5&decimals=6` - Cardano with high precision
 
 ## Installation
