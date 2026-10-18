@@ -1,0 +1,84 @@
+
+
+:root[data-theme="light"] {
+    --background-color: #2E2E2E;
+    --text-color: #111111;
+    --ticker-symbol-color: #696969;
+    --ticker-symbol-img-filter: brightness(50%);
+    --clock-color: #696969;
+}
+
+:root[data-theme="dark"] {
+    --background-color: #000000;
+    --text-color: #D3D3D3;
+    --ticker-symbol-color: #111111;
+    --ticker-symbol-img-filter: grayscale(100%) brightness(10%);
+    --clock-color: #111111;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+#app {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    font-family: 'Yantramanav', 'Inter', 'Inter Fallback', system-ui, sans-serif;
+    font-size: 20vw;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+}
+
+#ticker-symbol {
+    font-size: 5vw;
+    color: var(--ticker-symbol-color);
+    display: flex;
+    align-items: center;
+}
+
+#ticker-symbol img {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+    filter: var(--ticker-symbol-img-filter);
+}
+
+#btc-price {
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+#clock {
+    font-size: 5vw;
+    color: var(--clock-color);
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 2.5vw;
+}
+
+
+#controls {
+    font-size: 2vw;
+    color: #696969;
+    margin-bottom: 1vw;
+}
+
+.controls-wrapper {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  /* oder flex-Anordnung im Parent */
+}

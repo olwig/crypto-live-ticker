@@ -4,133 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading BTC Price...</title>
-    <link rel="icon" id="favicon" type="image/png" href="assets/btcusdt.png" />
+    <link rel="icon" id="favicon" type="image/png" href="favicon.png" />
+
     <style>
-        body {
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            height: 100vh;
-            background-color: #2E2E2E;
-            color: #D3D3D3;
-            font-family: 'Yantramanav', 'Inter', 'Inter Fallback', system-ui, sans-serif;
-            font-size: 20vw;
-            text-align: center;
-            font-weight: bold;
-            position: relative;
-        }
-
-        #ticker-symbol {
-            font-size: 5vw;
-            color: #696969;
-            display: flex;
-            align-items: center;
-        }
-
-        #ticker-symbol img {
-            width: 1em;
-            height: 1em;
-            margin-right: 0.5em;
-            filter: brightness(50%);
-        }
-
-        #btc-price {
-            width: 80%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        #clock {
-            font-size: 5vw;
-            color: #696969;
-            position: absolute;
-            bottom: 0;
-            padding-bottom: 2.5vw;
-        }
-
-        body.nightmode {
-            background-color: #000000;
-            color: #111111;
-        }
-
-        body.nightmode #ticker-symbol {
-            color: #111111;
-        }
-
-        body.nightmode #ticker-symbol img {
-            filter: grayscale(100%) brightness(10%);
-        }
-
-        body.nightmode #clock {
-            color: #111111;
-        }
+        
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Yantramanav:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="ticker-symbol"><img id="ticker-image" src="" alt="Ticker Image"><span id="ticker-text">Loading...</span></div>
-    <div id="btc-price">Loading...</div>
-    <div id="clock">Loading time...</div>
-
-    <script>
-        function getQueryParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                ticker: params.get('symbol') || 'BTCUSDT',
-                interval: (parseInt(params.get('interval')) || 3) * 1000,
-                decimals: parseInt(params.get('decimals')) || 0,
-                nightmode: params.has('night')
-            };
-        }
-
-        async function fetchBTCPrice(ticker, decimals) {
-            const url = `https://api.binance.com/api/v3/ticker/price?symbol=${ticker}`;
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                const price = parseFloat(data.price).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-
-                document.getElementById('btc-price').innerText = `${price}`;
-
-                document.getElementById('ticker-text').innerText = ticker;
-
-                const tickerImage = document.getElementById('ticker-image');
-                tickerImage.src = `assets/${ticker.toLowerCase()}.png`;
-                tickerImage.alt = `${ticker} logo`;
-
-                const favicon = document.getElementById('favicon');
-                favicon.href = `assets/${ticker.toLowerCase()}.png`;
-
-                document.title = `${price}`;
-            } catch (error) {
-                document.getElementById('btc-price').innerText = 'Error loading price';
-                document.getElementById('ticker-text').innerText = 'Error';
-                document.title = 'Error loading BTC price';
-                console.error('Error fetching BTC price:', error);
-            }
-        }
-
-        function updateClock() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            document.getElementById('clock').innerText = timeString;
-        }
-
-        function startFetching() {
-            const { ticker, interval, decimals, nightmode } = getQueryParams();
-            if (nightmode) {
-                document.body.classList.add('nightmode');
-            }
-            fetchBTCPrice(ticker.toUpperCase(), decimals);
-            setInterval(() => fetchBTCPrice(ticker.toUpperCase(), decimals), interval);
-            updateClock();
-            setInterval(updateClock, 60000);
-        }
-
-        startFetching();
-    </script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>
