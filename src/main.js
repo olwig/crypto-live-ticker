@@ -29,14 +29,6 @@ function updateTimezoneState() {
   });
 }
 
-function setupClockUpdater() {
-  setInterval((() => {
-    const tick = () => store.clock = new Date();
-    tick();
-    return tick;
-  })(), 1000);
-}
-
 function setupAssets() {
   // TODO create asset in dem via vite plugin
   // TODO make map from its ...
@@ -63,15 +55,10 @@ function main() {
   // TODO move binance logic to extra module
   // TODO use ccxt
   // TODO biannjcy module shoudl also creaet symbol img links to its cdn
-  // TODO export clock as selfcontsinered selvetle module with setuop interval etc
 
   setupTheme();
 
   setupAssets();
-
-
-  // update clock every second
-  setupClockUpdater();
 
   // get timezone formst not from browser, but from the internet ip location
   updateTimezoneState();
