@@ -13,24 +13,25 @@ This tool was created to monitor cryptocurrency prices in situations where a ful
 
 ## TODO
 
-- Add a control to switch between 24-hour and 12-hour time modes.
-- Implement lock as a component.
-- Allow hiding controls or changing the top menu style.
-- Auto-resize according to media queries.
-- Add JSDoc outside BinanceClient.
-- Add zoom controls.
-- Wire the decimal control to BinanceClient.maxDecimals. The control still clamps 0-8.
-- Review CSS structure to clarify which definitions belong to the component vs. the app.
-- Use WebSocket in the Binance client.
-- Store symbol, decimals, and interval in local storage. Theme is already stored as `ui.theme`.
-- Fix query args: if an arg is available, change it without reload and keep history in sync with internal state. Manual query arg changes should trigger state updates. If query args change from internal state updates, avoid cyclic re-renders.
 - Fix the interval timer: the query value is multiplied by 1000 twice, and the timer does not restart when params arrive.
 - Remove geolocation; use the browser time zone instead (privacy browsers may return an incorrect one).
-- Allow manual time zone changes in settings.
+- Fix query args: if an arg is available, change it without reload and keep history in sync with internal state. Manual query arg changes should trigger state updates. If query args change from internal state updates, avoid cyclic re-renders.
+- Wire the decimal control to BinanceClient.maxDecimals. The control still clamps 0-8.
+- Add zoom controls.
+- Store symbol, decimals, and interval in local storage. Theme is already stored as `ui.theme`.
+- Add a control to switch between 24-hour and 12-hour time modes.
+- Auto-resize according to media queries.
+- Allow hiding controls or changing the top menu style.
+- Implement lock as a component.
 - Add a settings panel for more advanced options.
+- Allow manual time zone changes in settings.
+- use vite ev for setup
+- Review CSS structure to clarify which definitions belong to the component vs. the app.
 - Binance client
   - Allow rebuilding the index at intervals.
   - Allow subscribing to index rebuilds.
+- Use WebSocket in the Binance client.
+- Add JSDoc outside BinanceClient.
 
 ## Features
 
