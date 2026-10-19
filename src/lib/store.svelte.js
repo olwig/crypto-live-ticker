@@ -4,7 +4,6 @@ export const app = $state({
     interval: 1,
     price: 0.0,
     decimals: 0,
-    clock: new Date(),
     locale: 'en-US',
     timezone: 'UTC',    
     hour12: false, 
@@ -16,9 +15,6 @@ export const app2 = {
 
     get interval() { return app.interval; },
     set interval(value) { app.interval = value; },
-
-    get clock() { return app.clock; },
-    set clock(value) { app.clock = value; },
 
     get price() { return app.price; },
     set price(value) { app.price = value; },

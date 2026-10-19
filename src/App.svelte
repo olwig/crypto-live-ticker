@@ -8,7 +8,14 @@
   <span id="ticker-text">{symbolUpper}</span>
 </div>
 <div id="btc-price">{formattedPrice}</div>
-<div id="clock">{formattedTime}</div>
+<Clock
+  showSeconds={true}
+  bind:hour12={app.hour12}
+  clickTogglesHour12={true}
+  interval={1000}
+  locale={app.locale}
+  timezone={app.timezone}
+/>
 
 <script>
     import { onMount } from 'svelte';
@@ -16,6 +23,7 @@
     import {symbolIndex} from './lib/symbolIndex.js';
     import { themeManager as theme } from './lib/theme-manager.svelte.js';
     import Controls from './lib/Controls.svelte';
+    import Clock from './lib/Clock.svelte';
 
     const apiUrlStub = 'https://api.binance.com/api/v3/ticker/price?symbol=';
 
@@ -31,20 +39,6 @@
             { 
                 minimumFractionDigits: app.decimals, 
                 maximumFractionDigits: app.decimals 
-            }
-        );
-    });
-
-    // format time on clock change
-    let formattedTime = $derived.by(() => {
-        return app.clock.toLocaleTimeString(
-            app.locale, 
-            {
-                timeZone: app.timezone,
-                hour12: app.hour12,  
-                hour: '2-digit', 
-                minute: '2-digit', 
-                second: '2-digit'  
             }
         );
     });
