@@ -13,6 +13,10 @@ This tool was created to monitor cryptocurrency prices in situations where a ful
 
 ## TODO
 
+- Initialize UI render states as early as possible to prevent flicker effects.
+- Fix query arguments.
+- Create a Svelte module for the title and icon.
+- If no localStorage theme is set, use the browser theme.
 - Fix the interval timer: the query value is multiplied by 1000 twice, and the timer does not restart when params arrive.
 - Remove geolocation; use the browser time zone instead (privacy browsers may return an incorrect one).
 - Fix query args: if an arg is available, change it without reload and keep history in sync with internal state. Manual query arg changes should trigger state updates. If query args change from internal state updates, avoid cyclic re-renders.
@@ -26,6 +30,7 @@ This tool was created to monitor cryptocurrency prices in situations where a ful
 - Add a settings panel for more advanced options.
 - Allow manual time zone changes in settings.
 - use vite ev for setup
+- Set up valid decimal ranges from the Binance client response regarding each asset's tick size.
 - Review CSS structure to clarify which definitions belong to the component vs. the app.
 - Binance client
   - Allow rebuilding the index at intervals.

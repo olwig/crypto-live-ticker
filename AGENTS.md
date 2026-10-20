@@ -16,5 +16,6 @@ A client-only Svelte 5 and Vite page that shows a live Binance spot price, a clo
 - Answer in the language the user used.
 - If a method or property changed, update its comment when the comment would be wrong.
 - If tests cover the code you changed, run them.
-- If JS changed and no test covers it, tell the user.
-- website should work as single page application in all major bowser and on all major devices; desktop and mobile
+- If JS changed and no test covers it, tell the user, or create a test if it makes sense.
+- The website should work as a single-page application in all major browsers and on all major devices: desktop and mobile.
+
