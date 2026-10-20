@@ -6,13 +6,11 @@
 	const symbols = ['BTCUSD', 'ETHUSD', 'SOLUSD', 'AAPL'];
 	let selectedSymbol = $state(symbols[0]);
 
-	let decimals = $state(2);
 	let zoom = $state(1.0);
 
 	function changeDecimals(delta) {
         // TODO pass max/min as params
-		decimals = Math.max(0, Math.min(8, decimals + delta));
-        app.decimals = decimals;
+		app.decimals = Math.max(0, Math.min(8, app.decimals + delta));
 	}
 
 	function changeZoom(delta) {
@@ -87,7 +85,7 @@
 	<div class="entry group">
 		<span class="label">Dezimal</span>
 		<button type="button" onclick={() => changeDecimals(-1)}>−</button>
-		<span class="value">{decimals}</span>
+		<span class="value">{app.decimals}</span>
 		<button type="button" onclick={() => changeDecimals(1)}>+</button>
 	</div>
 
