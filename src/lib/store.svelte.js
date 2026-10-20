@@ -29,5 +29,4 @@ export const app2 = {
     set timezone(value) { app.timezone = value; }
 };
 
-// TODO allow external subscribers to move query string modifications outside of the UI logic
 // TODO update language and currency based on user preferences

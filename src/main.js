@@ -7,6 +7,9 @@ import './lib/dom.svelte.js'
 import tzlookup from 'tz-lookup'
 import { symbolIndex } from './lib/symbolIndex.js'
 import { themeManager as theme } from './lib/theme-manager.svelte.js'
+import { installQueryArgs } from './lib/query-args.svelte.js'
+
+installQueryArgs();
 
 const app = mount(App, {
   target: document.getElementById('app'),
@@ -48,7 +51,6 @@ function setupTheme() {
 
 function main() {
   // TODO fix initial state which first load btc then waits for api to render new symbol. render instant mit all correct but -1 value
-  // TODO subscribe to store changes and update query string in address bar without reloading page
   // TODO them swicting via data-theme and css variables, not via class on body
   // TODO store theme state and others to local storage and load on startup
   // TODO dist + deploy on gh pages
@@ -119,45 +121,5 @@ setInterval((() => {
     fetch(); // initial fetch
     return fetch;
 })(), store.interval * 1000);
-
-async function ensureParams() {
-    // TODO rewrite address params with normed args without reloading
-
-    const params = new URLSearchParams(window.location.search);
-    
-    const symbol = (params.get('symbol') || 'BTCUSDT').toUpperCase();
-    const interval = parseInt(params.get('interval') || '3') * 1000;
-    const decimals = parseInt(params.get('decimals') || '0');
-    const themeName = params.has('theme')
-        ? String(params.get('theme')).trim().toLowerCase()
-        : '';
-
-    // TODO use functiuon for it with not return price and symbol if not valid
-    // TODO check if symbol is valid and available on binance
-    const fetched = await fetchPriceData(symbol);
-    if(fetched === false) {
-        console.error('Invalid symbol provided in query parameters.');
-        throw new Error('Forced crash: invalid symbol provided in query parameters.');
-    }
-
-    return {
-        symbol,
-        interval,
-        decimals,
-        theme: themeName
-    };
-}
-
-ensureParams().then(params => {
-    store.symbol = params.symbol;
-    store.interval = params.interval;
-    store.decimals = params.decimals;
-    if (params.theme && theme.has(params.theme)) {
-        theme.set(params.theme);
-    }
-}).catch(error => {
-    console.error('Error ensuring parameters:', error);
-    // TODO show error message to user
-});
 
 export default app
