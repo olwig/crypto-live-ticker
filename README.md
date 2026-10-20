@@ -18,7 +18,6 @@ This tool was created to monitor cryptocurrency prices in situations where a ful
 - Create a Svelte module for the title and icon.
 - If no localStorage theme is set, use the browser theme.
 - Fix the interval timer: the query value is multiplied by 1000 twice, and the timer does not restart when params arrive.
-- Remove geolocation; use the browser time zone instead (privacy browsers may return an incorrect one).
 - Fix query args: if an arg is available, change it without reload and keep history in sync with internal state. Manual query arg changes should trigger state updates. If query args change from internal state updates, avoid cyclic re-renders.
 - Wire the decimal control to BinanceClient.maxDecimals. The control still clamps 0-8.
 - Add zoom controls.
@@ -37,6 +36,7 @@ This tool was created to monitor cryptocurrency prices in situations where a ful
   - Allow subscribing to index rebuilds.
 - Use WebSocket in the Binance client.
 - Add JSDoc outside BinanceClient.
+- Use app2 kind of store style
 
 ## Features
 

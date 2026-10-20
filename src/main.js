@@ -2,35 +2,21 @@
 import './app.css'
 import { mount } from 'svelte'
 import App from './App.svelte'
-import { app as store } from './lib/store.svelte.js'
+import { app as store, syncLocale, syncTimezone, watchLocaleChanges } from './lib/store.svelte.js'
 import './lib/dom.svelte.js'
-import tzlookup from 'tz-lookup'
 import { symbolIndex } from './lib/symbolIndex.js'
 import { themeManager as theme } from './lib/theme-manager.svelte.js'
 import { installQueryArgs } from './lib/query-args.svelte.js'
 
 installQueryArgs();
 
+syncLocale();
+syncTimezone();
+watchLocaleChanges();
+
 const app = mount(App, {
   target: document.getElementById('app'),
 })
-
-
-function updateLocaleState() {
-  store.locale = navigator.language;
-  console.log('Locale updated to:', store.locale);
-}
-
-function updateTimezoneState() {
-  // TODO neo geo, ust use browsers timezone, if using librwolf with block it its the clients fault
-  navigator.geolocation.getCurrentPosition(pos => {
-    const tz = tzlookup(pos.coords.latitude, pos.coords.longitude);
-    
-    store.timezone = tz;
-
-    console.log('Timezone from geolocation:', tz);
-  });
-}
 
 function setupAssets() {
   // TODO create asset in dem via vite plugin
@@ -61,14 +47,6 @@ function main() {
   setupTheme();
 
   setupAssets();
-
-  // get timezone formst not from browser, but from the internet ip location
-  updateTimezoneState();
-
-  // subscribe to language change in browser
-  // set initial locale based on browser settings
-  updateLocaleState();
-  window.addEventListener('languagechange', updateLocaleState);
 }
 
 main();

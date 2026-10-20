@@ -29,4 +29,25 @@ export const app2 = {
     set timezone(value) { app.timezone = value; }
 };
 
+export function syncLocale() {
+    app.locale = navigator.language;
+    console.log('Locale updated to:', app.locale);
+}
+
+export function syncTimezone() {
+    app.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    console.log('Timezone from browser:', app.timezone);
+}
+
+// languagechange is the locale event. timezonechange is the zone event where the browser sends it.
+export function watchLocaleChanges(target = globalThis) {
+    target.addEventListener('languagechange', syncLocale);
+    target.addEventListener('timezonechange', syncTimezone);
+    return () => {
+        target.removeEventListener('languagechange', syncLocale);
+        target.removeEventListener('timezonechange', syncTimezone);
+    };
+}
+
+// TODO allow external subscribers to move query string modifications outside of the UI logic
 // TODO update language and currency based on user preferences
